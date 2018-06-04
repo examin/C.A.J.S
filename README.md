@@ -10,4 +10,5 @@
  The quick way httpd ::
 
      pip install scrapy
+     pip install pandas
      scrapy crawl httpd
