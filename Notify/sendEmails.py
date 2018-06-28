@@ -1,6 +1,7 @@
 import smtplib
 import configparser
 import pandas as pd
+import logging
 
 from string import Template
 from email.mime.multipart import MIMEMultipart
@@ -77,7 +78,6 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
         now_top = cve_Id[0]
         first_cve = last_data['CVE-Id'].values[0]
         if now_top != first_cve:
-            print("not same email")
             first_cve = last_data['CVE-Id'].values[0]
             now_top = cve_Id[0]
             i = 1
@@ -86,9 +86,11 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
             while cve_Id[i] != first_cve and i < total_cves:
                 new_added += 1
                 i += 1
-            print(new_added)
+            logging.info("Num of newly added cves are: "+new_added)
             main(parser_of, link, new_added, now_top, new_advisory)
             if new_added > 0:
                 return True
+        else:
+            logging.info("same data as last run of "+parser_of)
     except Exception as e:
-        print("File error: " + str(e))
+        logging.info("File error: " + parser_of +str(e)+ path)
