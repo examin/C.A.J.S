@@ -86,11 +86,13 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
             while cve_Id[i] != first_cve and i < total_cves:
                 new_added += 1
                 i += 1
-            logging.info("Num of newly added cves are: "+new_added)
+            logging.info("Num of newly added cves are: "+str(new_added))
             main(parser_of, link, new_added, now_top, new_advisory)
             if new_added > 0:
                 return True
         else:
             logging.info("same data as last run of "+parser_of)
+            return False
     except Exception as e:
-        logging.info("File error: " + parser_of +str(e)+ path)
+        logging.info("File error: " + " " + parser_of+" "+str(e))
+        return True

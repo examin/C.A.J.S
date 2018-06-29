@@ -1,4 +1,4 @@
-scrapy
-pandas
 argparse
-smtplib
+pandas
+virtualenv
+scrapy
