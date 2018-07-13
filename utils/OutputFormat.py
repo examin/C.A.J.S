@@ -1,35 +1,55 @@
 
 import logging
-def outputAs(name,df):
+from pandas import ExcelWriter
+
+
+def outputAs(name, df):
     try:
-        df.to_csv('Output/'+name+'.csv')
-        logging.info(name+" Data Updated")
+        df.to_csv('Output/' + name + '.csv')
+        logging.info(name + " Data Updated ")
         return True
     except Exception as e:
-        logging.info(name+" Data unable to Updated due to "+str(e))
+        logging.info(name + " Data unable to Updated due to " + str(e))
         return False
-def outputAsCve(name,df):
+
+
+def outputAsCve(name, df):
     try:
-        df.to_csv(name+'.csv')
-        logging.info(name+" Data Updated")
+        df.to_csv(name + '.csv')
+        print("output successfully written  as " +
+              additional_output_as + "for " + name)
         return True
     except Exception as e:
-        logging.info(name+" Data unable to Updated due to "+str(e))
+        logging.info(name + " Data unable to Updated due to " + str(e))
         return False
-def outputAsJson(name,df):
-     try:
-          df.to_json(name+'.json', orient='records')
-          return True
-     except Exception as e:
-        logging.info(name+" Data unable to Updated due to "+str(e))
+
+
+def outputAsJson(name, df):
+    try:
+        df.to_json(name + '.json', orient='records')
+        print("output successfully written  as " +
+              additional_output_as + "for " + name)
+        return True
+    except Exception as e:
+        logging.info(name + " Data unable to Updated due to " + str(e))
         return False
-def outputAsExcel(name,df):
-     try:
-         writer = ExcelWriter("Output/Tomcat_8" +".xlsx")
-         logging.info(name+" Data Updated")
-         df.to_excel(writer, 'CVE Details', index=False)
-         writer.save()
-         return True
-     except Exception as e:
-        logging.info(name+" Data unable to Updated due to "+str(e))
+
+
+def outputAsExcel(name, df):
+    try:
+        writer = ExcelWriter("Output/" + "name" + ".xlsx")
+        df.to_excel(writer, 'CVE Details', index=False)
+        writer.save()
+        print("output successfully written  as " +
+              additional_output_as + "for " + name)
+        return True
+    except Exception as e:
+        logging.info(name + " Data unable to Updated due to " + str(e))
         return False
+
+
+def custom_output(additional_output_as, name, df):
+    if additional_output_as == 'json':
+        is_written = outputAsJson(name, df)
+    if additional_output_as == 'csv':
+        is_written = outputAsExcel(name, df)

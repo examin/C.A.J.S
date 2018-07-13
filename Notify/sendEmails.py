@@ -1,7 +1,12 @@
 import smtplib
 import configparser
+import utils.OutputFormat as out
+import utils.args as args
 import pandas as pd
 import logging
+import utils.args as args
+import email
+from email.utils import parseaddr
 
 from string import Template
 from email.mime.multipart import MIMEMultipart
@@ -13,6 +18,7 @@ config.read('Notify/config.ini')
 Log = config['LogIn']
 FROM_EMAIL = Log['email_Id']
 MY_PASSWORD = Log['password']
+ARG = args.argparsed
 
 
 def get_users(file_name):
@@ -36,9 +42,22 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
     message_template = parse_template('Notify/newcve.html')
 
     # set up the SMTP server
-    smtp_server = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    smtp_server = smtplib.SMTP(host=ARG.smtp_address, port=ARG.smtp_port)
     smtp_server.starttls()
-    smtp_server.login(FROM_EMAIL, MY_PASSWORD)
+    if ARG.smtp_user is False:
+        email_check = parseaddr(FROM_EMAIL)
+        if not email_check[1]:
+            logging.info("email id in config.ini is not valid")
+            return False
+        else:
+            smtp_server.login(FROM_EMAIL, MY_PASSWORD)
+    else:
+        email_check = parseaddr(ARG.smtp_user)
+        if email_check[1] != '':
+            smtp_server.login(ARG.smtp_user, ARG.smtp_pass)
+        else:
+            logging.info("email id in argparse is not valid")
+            return False
 
     # Get each user detail and send the email:
     for name, email in zip(names, emails):
@@ -54,7 +73,7 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
             PARSER_OF=parser_of)
 
         # Prints out the message body for our sake
-        #print(message)
+        # print(message)
 
         # setup the parameters of the message
         multipart_msg['From'] = FROM_EMAIL
@@ -74,7 +93,7 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
 
 def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
     try:
-        last_data = pd.read_excel(path)
+        last_data = pd.read_csv(path)
         now_top = cve_Id[0]
         first_cve = last_data['CVE-Id'].values[0]
         if now_top != first_cve:
@@ -86,13 +105,13 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
             while cve_Id[i] != first_cve and i < total_cves:
                 new_added += 1
                 i += 1
-            logging.info("Num of newly added cves are: "+str(new_added))
+            logging.info("Num of newly added cves are: " + str(new_added))
             main(parser_of, link, new_added, now_top, new_advisory)
             if new_added > 0:
                 return True
         else:
-            logging.info("same data as last run of "+parser_of)
+            logging.info("same data as last run of " + parser_of)
             return False
     except Exception as e:
-        logging.info("File error: " + " " + parser_of+" "+str(e))
+        logging.info("File error: " + " " + parser_of + " " + str(e))
         return True
