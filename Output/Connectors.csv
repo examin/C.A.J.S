@@ -1,0 +1,7 @@
+Unnamed: 0,impact_Rating,CVE-Id,Advisory,versions_Affected
+1,moderate,CVE-2016-6808, Buffer Overflow, JK 1.2.0-1.2.41
+2,important,CVE-2014-8111, Information disclosure, JK 1.2.0-1.2.40
+3,important,CVE-2008-5519, Information disclosure, JK 1.2.0-1.2.26
+4,important,CVE-2007-1860, Information disclosure, JK 1.2.0-1.2.22 (httpd mod_jk module only)
+5,critical,CVE-2007-0774, Arbitrary code execution and denial of service, JK 1.2.19-1.2.20
+6,important,CVE-2006-7197, Information disclosure, JK 1.2.0-1.2.15

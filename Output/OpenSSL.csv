@@ -1,0 +1,582 @@
+Unnamed: 0,Impact Rating,CVE-Id,Advisory,Versions Affected,Fixed in OpenSSL
+1,low,CVE-2018-0737,"The OpenSSL RSA Key generation algorithm has been shown to be vulnerable
+      to a cache timing side channel attack. An attacker with sufficient access
+      to mount cache timing attacks during the RSA key generation process could
+      recover the private key. Reported by Alejandro Cabrera Aldaya, Billy Brumley, Cesar Pereida Garcia and Luis Manuel Alvarez Tapia. ", 1.0.2-1.0.2o, 1.0.2p-dev 
+2,moderate,CVE-2018-0739,"Constructed ASN.1 types with a recursive definition (such as can be found
+      in PKCS7) could eventually exceed the stack given malicious input with
+      excessive recursion. This could result in a Denial Of Service attack.
+      There are no such structures used within SSL/TLS that come from untrusted
+      sources so this is considered safe. Reported by OSS-fuzz. ", 1.0.2b-1.0.2n, 1.0.2o 
+3,low,CVE-2017-3738,"There is an overflow bug in the AVX2 Montgomery multiplication procedure
+      used in exponentiation with 1024-bit moduli. No EC algorithms are affected.
+      Analysis suggests that attacks against RSA and DSA as a result of this defect
+      would be very difficult to perform and are not believed likely. Attacks
+      against DH1024 are considered just feasible, because most of the work
+      necessary to deduce information about a private key may be performed offline.
+      The amount of resources required for such an attack would be significant.
+      However, for an attack on TLS to be meaningful, the server would have to share
+      the DH1024 private key among multiple clients, which is no longer an option
+      since CVE-2016-0701.
+
+      This only affects processors that support the AVX2 but not ADX extensions
+      like Intel Haswell (4th generation).
+
+      Note: The impact from this issue is similar to CVE-2017-3736, CVE-2017-3732
+      and CVE-2015-3193.
+
+      Due to the low severity of this issue we are not issuing a new release of
+      OpenSSL 1.1.0 at this time. The fix will be included in OpenSSL 1.1.0h when it
+      becomes available. The fix is also available in commit e502cc86d in the OpenSSL
+      git repository. Reported by David Benjamin (Google)/Google OSS-Fuzz. ", 1.0.2-1.0.2m, 1.0.2n 
+4,moderate,CVE-2017-3737,"OpenSSL 1.0.2 (starting from version 1.0.2b) introduced an ""error state""
+      mechanism. The intent was that if a fatal error occurred during a handshake then
+      OpenSSL would move into the error state and would immediately fail if you
+      attempted to continue the handshake. This works as designed for the explicit
+      handshake functions (SSL_do_handshake(), SSL_accept() and SSL_connect()),
+      however due to a bug it does not work correctly if SSL_read() or SSL_write() is
+      called directly. In that scenario, if the handshake fails then a fatal error
+      will be returned in the initial function call. If SSL_read()/SSL_write() is
+      subsequently called by the application for the same SSL object then it will
+      succeed and the data is passed without being decrypted/encrypted directly from
+      the SSL/TLS record layer.
+
+      In order to exploit this issue an application bug would have to be present that
+      resulted in a call to SSL_read()/SSL_write() being issued after having already
+      received a fatal error. Reported by David Benjamin (Google). ", 1.0.2b-1.0.2m, 1.0.2n 
+5,moderate,CVE-2017-3736,"There is a carry propagating bug in the x86_64 Montgomery squaring procedure. No
+      EC algorithms are affected. Analysis suggests that attacks against RSA and DSA
+      as a result of this defect would be very difficult to perform and are not
+      believed likely. Attacks against DH are considered just feasible (although very
+      difficult) because most of the work necessary to deduce information
+      about a private key may be performed offline. The amount of resources
+      required for such an attack would be very significant and likely only
+      accessible to a limited number of attackers. An attacker would
+      additionally need online access to an unpatched system using the target
+      private key in a scenario with persistent DH parameters and a private
+      key that is shared between multiple clients.
+
+      This only affects processors that support the BMI1, BMI2 and ADX extensions like
+      Intel Broadwell (5th generation) and later or AMD Ryzen. Reported by Google OSS-Fuzz. ", 1.0.2-1.0.2l, 1.0.2m 
+6,low,CVE-2017-3735,"While parsing an IPAdressFamily extension in an X.509 certificate,
+      it is possible to do a one-byte overread. This would result in
+      an incorrect text display of the certificate. Reported by Google OSS-Fuzz. ", 1.0.2-1.0.2l, 1.0.2m 
+7,moderate,CVE-2017-3732,"There is a carry propagating bug in the x86_64 Montgomery squaring
+      procedure. No EC algorithms are affected. Analysis suggests that attacks
+      against RSA and DSA as a result of this defect would be very difficult to
+      perform and are not believed likely. Attacks against DH are considered
+      just feasible (although very difficult) because most of the work necessary
+      to deduce information about a private key may be performed offline. The
+      amount of resources required for such an attack would be very significant
+      and likely only accessible to a limited number of attackers. An attacker
+      would additionally need online access to an unpatched system using the
+      target private key in a scenario with persistent DH parameters and a
+      private key that is shared between multiple clients. For example this can
+      occur by default in OpenSSL DHE based SSL/TLS ciphersuites. Note: This
+      issue is very similar to CVE-2015-3193 but must be treated as a separate
+      problem. Reported by OSS-Fuzz project. ", 1.0.2-1.0.2j, 1.0.2k 
+8,moderate,CVE-2017-3731,"If an SSL/TLS server or client is running on a 32-bit host, and a specific
+      cipher is being used, then a truncated packet can cause that server or
+      client to perform an out-of-bounds read, usually resulting in a crash.
+
+      For OpenSSL 1.1.0, the crash can be triggered when using
+      CHACHA20/POLY1305; users should upgrade to 1.1.0d.
+
+      For Openssl 1.0.2, the crash can be triggered when using RC4-MD5; users
+      who have not disabled that algorithm should update to 1.0.2k Reported by Robert Święcki of Google. ", 1.0.2-1.0.2j, 1.0.2k 
+9,low,CVE-2016-7055,"There is a carry propagating bug in the Broadwell-specific Montgomery
+      multiplication procedure that handles input lengths divisible by, but
+      longer than 256 bits. Analysis suggests that attacks against RSA, DSA
+      and DH private keys are impossible. This is because the subroutine in
+      question is not used in operations with the private key itself and an
+      input of the attacker's direct choice. Otherwise the bug can manifest
+      itself as transient authentication and key negotiation failures or
+      reproducible erroneous outcome of public-key operations with specially
+      crafted input. Among EC algorithms only Brainpool P-512 curves are
+      affected and one presumably can attack ECDH key negotiation. Impact was
+      not analyzed in detail, because pre-requisites for attack are considered
+      unlikely. Namely multiple clients have to choose the curve in question and
+      the server has to share the private key among them, neither of which is
+      default behaviour. Even then only clients that chose the curve will be
+      affected. Reported by Publicly reported. ", 1.0.2-1.0.2j, 1.0.2k 
+10,moderate,CVE-2016-7052,"This issue only affects OpenSSL 1.0.2i, released on 22nd September 2016.
+
+      A bug fix which included a CRL sanity check was added to OpenSSL 1.1.0
+      but was omitted from OpenSSL 1.0.2i. As a result any attempt to use
+      CRLs in OpenSSL 1.0.2i will crash with a null pointer exception. Reported by Bruce Stephens and Thomas Jakobi. ", 1.0.2i, 1.0.2j 
+11,high,CVE-2016-6304,"A malicious client can send an excessively large OCSP Status Request extension.
+      If that client continually requests renegotiation, sending a large OCSP Status
+      Request extension each time, then there will be unbounded memory growth on the
+      server. This will eventually lead to a Denial Of Service attack through memory
+      exhaustion. Servers with a default configuration are vulnerable even if they do
+      not support OCSP. Builds using the ""no-ocsp"" build time option are not affected.
+
+      Servers using OpenSSL versions prior to 1.0.1g are not vulnerable in a default
+      configuration, instead only if an application explicitly enables OCSP stapling
+      support. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+12,low,CVE-2016-6306,"In OpenSSL 1.0.2 and earlier some missing message length checks can result in
+      OOB reads of up to 2 bytes beyond an allocated buffer. There is a theoretical
+      DoS risk but this has not been observed in practice on common platforms.
+
+      The messages affected are client certificate, client certificate request and
+      server certificate. As a result the attack can only be performed against
+      a client or a server which enables client authentication. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+13,low,CVE-2016-6303,"An overflow can occur in MDC2_Update() either if called directly or
+      through the EVP_DigestUpdate() function using MDC2. If an attacker
+      is able to supply very large amounts of input data after a previous
+      call to EVP_EncryptUpdate() with a partial block then a length check
+      can overflow resulting in a heap corruption.
+
+      The amount of data needed is comparable to SIZE_MAX which is impractical
+      on most platforms. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+14,low,CVE-2016-6302,"If a server uses SHA512 for TLS session ticket HMAC it is vulnerable to a
+      DoS attack where a malformed ticket will result in an OOB read which will
+      ultimately crash.
+
+      The use of SHA512 in TLS session tickets is comparatively rare as it requires
+      a custom server callback and ticket lookup mechanism. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+15,low,CVE-2016-2179,"In a DTLS connection where handshake messages are delivered out-of-order those
+      messages that OpenSSL is not yet ready to process will be buffered for later
+      use. Under certain circumstances, a flaw in the logic means that those messages
+      do not get removed from the buffer even though the handshake has been completed.
+      An attacker could force up to approx. 15 messages to remain in the buffer when
+      they are no longer required. These messages will be cleared when the DTLS
+      connection is closed. The default maximum size for a message is 100k. Therefore
+      the attacker could force an additional 1500k to be consumed per connection. By
+      opening many simulataneous connections an attacker could cause a DoS attack
+      through memory exhaustion. Reported by Quan Luo. ", 1.0.2-1.0.2h, 1.0.2i 
+16,low,CVE-2016-2181,"A flaw in the DTLS replay attack protection mechanism means that records that
+      arrive for future epochs update the replay protection ""window"" before the MAC
+      for the record has been validated. This could be exploited by an attacker by
+      sending a record for the next epoch (which does not have to decrypt or have a
+      valid MAC), with a very large sequence number. This means that all subsequent
+      legitimate packets are dropped causing a denial of service for a specific
+      DTLS connection. Reported by OCAP audit team. ", 1.0.2-1.0.2h, 1.0.2i 
+17,low,CVE-2016-2182,"The function BN_bn2dec() does not check the return value of BN_div_word().
+      This can cause an OOB write if an application uses this function with an
+      overly large BIGNUM. This could be a problem if an overly large certificate
+      or CRL is printed out from an untrusted source. TLS is not affected because
+      record limits will reject an oversized certificate before it is parsed. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+18,low,CVE-2016-2180,"The function TS_OBJ_print_bio() misuses OBJ_obj2txt(): the return value is
+      the total length the OID text representation would use and not the amount
+      of data written. This will result in OOB reads when large OIDs are presented. Reported by Shi Lei (Gear Team, Qihoo 360 Inc.). ", 1.0.2-1.0.2h, 1.0.2i 
+19,low,CVE-2016-2178,"Operations in the DSA signing algorithm should run in constant time in order to
+      avoid side channel attacks. A flaw in the OpenSSL DSA implementation means that
+      a non-constant time codepath is followed for certain operations. This has been
+      demonstrated through a cache-timing attack to be sufficient for an attacker to
+      recover the private DSA key. Reported by César Pereida (Aalto University), Billy Brumley (Tampere University of Technology), and Yuval Yarom (The University of Adelaide and NICTA). ", 1.0.2-1.0.2h, 1.0.2i 
+20,low,CVE-2016-2177,"Avoid some undefined pointer arithmetic
+
+        A common idiom in the codebase is to check limits in the following manner:
+        ""p + len > limit""
+
+        Where ""p"" points to some malloc'd data of SIZE bytes and
+        limit == p + SIZE
+
+        ""len"" here could be from some externally supplied data (e.g. from a TLS
+        message).
+
+        The rules of C pointer arithmetic are such that ""p + len"" is only well
+        defined where len <= SIZE. Therefore the above idiom is actually
+        undefined behaviour.
+
+        For example this could cause problems if some malloc implementation
+        provides an address for ""p"" such that ""p + len"" actually overflows for
+        values of len that are too big and therefore p + len < limit. Reported by Guido Vranken. ", 1.0.2-1.0.2h, 1.0.2i 
+21,low,CVE-2016-2176,"ASN1 Strings that are over 1024 bytes can cause an overread in
+      applications using the X509_NAME_oneline() function on EBCDIC systems.
+      This could result in arbitrary stack data being returned in the buffer. Reported by Guido Vranken. ", 1.0.2-1.0.2g, 1.0.2h 
+22,low,CVE-2016-2109,"When ASN.1 data is read from a BIO using functions such as d2i_CMS_bio()
+      a short invalid encoding can casuse allocation of large amounts of memory
+      potentially consuming excessive resources or exhausting memory.
+
+      Any application parsing untrusted data through d2i BIO functions is
+      affected. The memory based functions such as d2i_X509() are *not*
+      affected. Since the memory based functions are used by the TLS library,
+      TLS applications are not affected. Reported by Brian Carpenter. ", 1.0.2-1.0.2g, 1.0.2h 
+23,high,CVE-2016-2108,"This issue affected versions of OpenSSL prior to April 2015. The bug
+      causing the vulnerability was fixed on April 18th 2015, and released
+      as part of the June 11th 2015 security releases. The security impact
+      of the bug was not known at the time.
+
+      In previous versions of OpenSSL, ASN.1 encoding the value zero
+      represented as a negative integer can cause a buffer underflow
+      with an out-of-bounds write in i2c_ASN1_INTEGER. The ASN.1 parser does
+      not normally create ""negative zeroes"" when parsing ASN.1 input, and
+      therefore, an attacker cannot trigger this bug.
+
+      However, a second, independent bug revealed that the ASN.1 parser
+      (specifically, d2i_ASN1_TYPE) can misinterpret a large universal tag
+      as a negative zero value. Large universal tags are not present in any
+      common ASN.1 structures (such as X509) but are accepted as part of ANY
+      structures.
+
+      Therefore, if an application deserializes untrusted ASN.1 structures
+      containing an ANY field, and later reserializes them, an attacker may
+      be able to trigger an out-of-bounds write. This has been shown to
+      cause memory corruption that is potentially exploitable with some
+      malloc implementations.
+
+      Applications that parse and re-encode X509 certificates are known to
+      be vulnerable. Applications that verify RSA signatures on X509
+      certificates may also be vulnerable; however, only certificates with
+      valid signatures trigger ASN.1 re-encoding and hence the
+      bug. Specifically, since OpenSSL's default TLS X509 chain verification
+      code verifies the certificate chain from root to leaf, TLS handshakes
+      could only be targeted with valid certificates issued by trusted
+      Certification Authorities. Reported by Huzaifa Sidhpurwala (Red Hat), Hanno Böck, David Benjamin (Google). ", 1.0.2-1.0.2b, 1.0.2c 
+24,high,CVE-2016-2107,"A MITM attacker can use a padding oracle attack to decrypt traffic
+      when the connection uses an AES CBC cipher and the server support
+      AES-NI.
+
+      This issue was introduced as part of the fix for Lucky 13 padding
+      attack (CVE-2013-0169). The padding check was rewritten to be in
+      constant time by making sure that always the same bytes are read and
+      compared against either the MAC or padding bytes. But it no longer
+      checked that there was enough data to have both the MAC and padding
+      bytes. Reported by Juraj Somorovsky. ", 1.0.2-1.0.2g, 1.0.2h 
+25,low,CVE-2016-2106,"An overflow can occur in the EVP_EncryptUpdate() function. If an attacker
+      is able to supply very large amounts of input data after a previous call
+      to EVP_EncryptUpdate() with a partial block then a length check can
+      overflow resulting in a heap corruption. Following an analysis of all
+      OpenSSL internal usage of the EVP_EncryptUpdate() function all usage is
+      one of two forms. The first form is where the EVP_EncryptUpdate() call is
+      known to be the first called function after an EVP_EncryptInit(), and
+      therefore that specific call must be safe. The second form is where the
+      length passed to EVP_EncryptUpdate() can be seen from the code to be some
+      small value and therefore there is no possibility of an overflow. Since
+      all instances are one of these two forms, it is believed that there can be
+      no overflows in internal code due to this problem. It should be noted that
+      EVP_DecryptUpdate() can call EVP_EncryptUpdate() in certain code paths.
+      Also EVP_CipherUpdate() is a synonym for EVP_EncryptUpdate(). All
+      instances of these calls have also been analysed too and it is believed
+      there are no instances in internal usage where an overflow could occur.
+
+      This could still represent a security issue for end user code that calls
+      this function directly. Reported by Guido Vranken. ", 1.0.2-1.0.2g, 1.0.2h 
+26,low,CVE-2016-2105,"An overflow can occur in the EVP_EncodeUpdate() function which is used for
+      Base64 encoding of binary data. If an attacker is able to supply very
+      large amounts of input data then a length check can overflow resulting in
+      a heap corruption.
+
+      Internally to OpenSSL the EVP_EncodeUpdate() function is primarly used by the
+      PEM_write_bio* family of functions. These are mainly used within the OpenSSL
+      command line applications. These internal uses are not considered vulnerable
+      because all calls are bounded with length checks so no overflow is possible.
+      User applications that call these APIs directly with large amounts of untrusted
+      data may be vulnerable. (Note: Initial analysis suggested that the
+      PEM_write_bio* were vulnerable, and this is reflected in the patch commit
+      message. This is no longer believed to be the case). Reported by Guido Vranken. ", 1.0.2-1.0.2g, 1.0.2h 
+27,high,CVE-2016-0800,"A cross-protocol attack was discovered that could lead to decryption of TLS
+      sessions by using a server supporting SSLv2 and EXPORT cipher suites as a
+      Bleichenbacher RSA padding oracle.  Note that traffic between clients and
+      non-vulnerable servers can be decrypted provided another server supporting
+      SSLv2 and EXPORT ciphers (even with a different protocol such as SMTP, IMAP or
+      POP) shares the RSA keys of the non-vulnerable server. This vulnerability is
+      known as DROWN (CVE-2016-0800).
+
+      Recovering one session key requires the attacker to perform approximately 2^50
+      computation, as well as thousands of connections to the affected server. A more
+      efficient variant of the DROWN attack exists against unpatched OpenSSL servers
+      using versions that predate 1.0.2a, 1.0.1m, 1.0.0r and 0.9.8zf released on
+      19/Mar/2015 (see CVE-2016-0703 below).
+
+      Users can avoid this issue by disabling the SSLv2 protocol in all their SSL/TLS
+      servers, if they've not done so already. Disabling all SSLv2 ciphers is also
+      sufficient, provided the patches for CVE-2015-3197 (fixed in OpenSSL 1.0.1r and
+      1.0.2f) have been deployed.  Servers that have not disabled the SSLv2 protocol,
+      and are not patched for CVE-2015-3197 are vulnerable to DROWN even if all SSLv2
+      ciphers are nominally disabled, because malicious clients can force the use of
+      SSLv2 with EXPORT ciphers.
+
+      OpenSSL 1.0.2g and 1.0.1s deploy the following mitigation against DROWN:
+
+      SSLv2 is now by default disabled at build-time.  Builds that are not configured
+      with ""enable-ssl2"" will not support SSLv2.  Even if ""enable-ssl2"" is used,
+      users who want to negotiate SSLv2 via the version-flexible SSLv23_method() will
+      need to explicitly call either of:
+
+         SSL_CTX_clear_options(ctx, SSL_OP_NO_SSLv2);
+         or
+         SSL_clear_options(ssl, SSL_OP_NO_SSLv2);
+
+      as appropriate.  Even if either of those is used, or the application explicitly
+      uses the version-specific SSLv2_method() or its client or server variants,
+      SSLv2 ciphers vulnerable to exhaustive search key recovery have been removed.
+      Specifically, the SSLv2 40-bit EXPORT ciphers, and SSLv2 56-bit DES are no
+      longer available.
+
+      In addition, weak ciphers in SSLv3 and up are now disabled in default builds of
+      OpenSSL.  Builds that are not configured with ""enable-weak-ssl-ciphers"" will
+      not provide any ""EXPORT"" or ""LOW"" strength ciphers. Reported by Nimrod Aviram and Sebastian Schinzel. ", 1.0.2-1.0.2f, 1.0.2g 
+28,low,CVE-2016-0799,"The internal |fmtstr| function used in processing a ""%s"" format string in the
+      BIO_*printf functions could overflow while calculating the length of a string
+      and cause an OOB read when printing very long strings.
+
+      Additionally the internal |doapr_outch| function can attempt to write to an OOB
+      memory location (at an offset from the NULL pointer) in the event of a memory
+      allocation failure. In 1.0.2 and below this could be caused where the size of a
+      buffer to be allocated is greater than INT_MAX. E.g. this could be in processing
+      a very long ""%s"" format string. Memory leaks can also occur.
+
+      The first issue may mask the second issue dependent on compiler behaviour.
+      These problems could enable attacks where large amounts of untrusted data is
+      passed to the BIO_*printf functions. If applications use these functions in this
+      way then they could be vulnerable. OpenSSL itself uses these functions when
+      printing out human-readable dumps of ASN.1 data. Therefore applications that
+      print this data could be vulnerable if the data is from untrusted sources.
+      OpenSSL command line applications could also be vulnerable where they print out
+      ASN.1 data, or if untrusted data is passed as command line arguments.
+
+      Libssl is not considered directly vulnerable. Additionally certificates etc
+      received via remote connections via libssl are also unlikely to be able to
+      trigger these issues because of message size limits enforced within libssl. Reported by Guido Vranken. ", 1.0.2-1.0.2f, 1.0.2g 
+29,low,CVE-2016-0798,"The SRP user database lookup method SRP_VBASE_get_by_user had
+      confusing memory management semantics; the returned pointer was sometimes newly
+      allocated, and sometimes owned by the callee. The calling code has no way of
+      distinguishing these two cases.
+
+      Specifically, SRP servers that configure a secret seed to hide valid
+      login information are vulnerable to a memory leak: an attacker
+      connecting with an invalid username can cause a memory leak of around
+      300 bytes per connection.  Servers that do not configure SRP, or
+      configure SRP but do not configure a seed are not vulnerable.
+
+      In Apache, the seed directive is known as SSLSRPUnknownUserSeed.
+
+      To mitigate the memory leak, the seed handling in
+      SRP_VBASE_get_by_user is now disabled even if the user has configured
+      a seed.  Applications are advised to migrate to
+      SRP_VBASE_get1_by_user. However, note that OpenSSL makes no strong
+      guarantees about the indistinguishability of valid and invalid
+      logins. In particular, computations are currently not carried out in
+      constant time. Reported by Emilia Käsper (OpenSSL). ", 1.0.2-1.0.2f, 1.0.2g 
+30,low,CVE-2016-0797,"In the BN_hex2bn function the number of hex digits is calculated using an int
+      value |i|. Later |bn_expand| is called with a value of |i * 4|. For large values
+      of |i| this can result in |bn_expand| not allocating any memory because |i * 4|
+      is negative. This can leave the internal BIGNUM data field as NULL leading to a
+      subsequent NULL ptr deref. For very large values of |i|, the calculation |i * 4|
+      could be a positive value smaller than |i|. In this case memory is allocated to
+      the internal BIGNUM data field, but it is insufficiently sized leading to heap
+      corruption. A similar issue exists in BN_dec2bn. This could have security
+      consequences if BN_hex2bn/BN_dec2bn is ever called by user applications with
+      very large untrusted hex/dec data. This is anticipated to be a rare occurrence.
+
+      All OpenSSL internal usage of these functions use data that is not expected to
+      be untrusted, e.g. config file data or application command line arguments. If
+      user developed applications generate config file data based on untrusted data
+      then it is possible that this could also lead to security consequences. This is
+      also anticipated to be rare. Reported by Guido Vranken. ", 1.0.2-1.0.2f, 1.0.2g 
+31,low,CVE-2016-0705,"A double free bug was discovered when OpenSSL parses malformed DSA private keys
+      and could lead to a DoS attack or memory corruption for applications that
+      receive DSA private keys from untrusted sources.  This scenario is considered
+      rare. Reported by Adam Langley (Google/BoringSSL). ", 1.0.2-1.0.2f, 1.0.2g 
+32,moderate,CVE-2016-0704,"This issue only affected versions of OpenSSL prior to March 19th 2015 at which
+      time the code was refactored to address the vulnerability CVE-2015-0293.
+
+      s2_srvr.c overwrite the wrong bytes in the master-key when applying
+      Bleichenbacher protection for export cipher suites.  This provides a
+      Bleichenbacher oracle, and could potentially allow more efficient variants of
+      the DROWN attack. Reported by David Adrian and J.Alex Halderman (University of Michigan). ", 1.0.2, 1.0.2a 
+33,high,CVE-2016-0703,"This issue only affected versions of OpenSSL prior to March 19th 2015 at which
+      time the code was refactored to address vulnerability CVE-2015-0293.
+
+      s2_srvr.c did not enforce that clear-key-length is 0 for non-export ciphers. If
+      clear-key bytes are present for these ciphers, they *displace* encrypted-key
+      bytes. This leads to an efficient divide-and-conquer key recovery attack: if an
+      eavesdropper has intercepted an SSLv2 handshake, they can use the server as an
+      oracle to determine the SSLv2 master-key, using only 16 connections to the
+      server and negligible computation.
+
+      More importantly, this leads to a more efficient version of DROWN that is
+      effective against non-export ciphersuites, and requires no significant
+      computation. Reported by David Adrian and J.Alex Halderman (University of Michigan). ", 1.0.2, 1.0.2a 
+34,low,CVE-2016-0702,"A side-channel attack was found which makes use of cache-bank conflicts on the
+      Intel Sandy-Bridge microarchitecture which could lead to the recovery of RSA
+      keys.  The ability to exploit this issue is limited as it relies on an attacker
+      who has control of code in a thread running on the same hyper-threaded core as
+      the victim thread which is performing decryptions. Reported by Yuval Yarom, The University of Adelaide and NICTA, Daniel Genkin, Technion and Tel Aviv University, and Nadia Heninger, University of Pennsylvania. ", 1.0.2-1.0.2f, 1.0.2g 
+35,high,CVE-2016-0701,"Historically OpenSSL usually only ever generated DH parameters based on ""safe""
+      primes. More recently (in version 1.0.2) support was provided for generating
+      X9.42 style parameter files such as those required for RFC 5114 support. The
+      primes used in such files may not be ""safe"". Where an application is using DH
+      configured with parameters based on primes that are not ""safe"" then an attacker
+      could use this fact to find a peer's private DH exponent. This attack requires
+      that the attacker complete multiple handshakes in which the peer uses the same
+      private DH exponent. For example this could be used to discover a TLS server's
+      private DH exponent if it's reusing the private DH exponent or it's using a
+      static DH ciphersuite.
+
+      OpenSSL provides the option SSL_OP_SINGLE_DH_USE for ephemeral DH (DHE) in TLS.
+      It is not on by default. If the option is not set then the server reuses the
+      same private DH exponent for the life of the server process and would be
+      vulnerable to this attack. It is believed that many popular applications do set
+      this option and would therefore not be at risk.
+
+      OpenSSL before 1.0.2f will reuse the key if:
+      - SSL_CTX_set_tmp_dh()/SSL_set_tmp_dh() is used and SSL_OP_SINGLE_DH_USE is not
+        set.
+      - SSL_CTX_set_tmp_dh_callback()/SSL_set_tmp_dh_callback() is used, and both the
+        parameters and the key are set and SSL_OP_SINGLE_DH_USE is not used. This is
+        an undocumted feature and parameter files don't contain the key.
+      - Static DH ciphersuites are used. The key is part of the certificate and
+        so it will always reuse it. This is only supported in 1.0.2.
+
+      It will not reuse the key for DHE ciphers suites if:
+      - SSL_OP_SINGLE_DH_USE is set
+      - SSL_CTX_set_tmp_dh_callback()/SSL_set_tmp_dh_callback() is used and the
+        callback does not provide the key, only the parameters. The callback is
+        almost always used like this.
+
+      Non-safe primes are generated by OpenSSL when using:
+      - genpkey with the dh_rfc5114 option. This will write an X9.42 style file
+        including the prime-order subgroup size ""q"". This is supported since the 1.0.2
+        version. Older versions can't read files generated in this way.
+      - dhparam with the -dsaparam option. This has always been documented as
+        requiring the single use.
+
+      The fix for this issue adds an additional check where a ""q"" parameter is
+      available (as is the case in X9.42 based parameters). This detects the
+      only known attack, and is the only possible defense for static DH ciphersuites.
+      This could have some performance impact.
+
+      Additionally the SSL_OP_SINGLE_DH_USE option has been switched on by default
+      and cannot be disabled. This could have some performance impact. Reported by Antonio Sanso (Adobe). ", 1.0.2-1.0.2e, 1.0.2f 
+36,low,CVE-2015-3197,"A malicious client can negotiate SSLv2 ciphers that have been disabled on the
+      server and complete SSLv2 handshakes even if all SSLv2 ciphers have been
+      disabled, provided that the SSLv2 protocol was not also disabled via
+      SSL_OP_NO_SSLv2. Reported by Nimrod Aviram and Sebastian Schinzel. ", 1.0.2-1.0.2e, 1.0.2f 
+37,low,CVE-2015-3196,"If PSK identity hints are received by a multi-threaded client then
+      the values are wrongly updated in the parent SSL_CTX structure. This can
+      result in a race condition potentially leading to a double free of the
+      identify hint data. Reported by Stephen Henson (OpenSSL). ", 1.0.2-1.0.2c, 1.0.2d 
+38,moderate,CVE-2015-3195,"When presented with a malformed X509_ATTRIBUTE structure OpenSSL will leak
+      memory. This structure is used by the PKCS#7 and CMS routines so any
+      application which reads PKCS#7 or CMS data from untrusted sources is affected.
+      SSL/TLS is not affected. Reported by Adam Langley (Google/BoringSSL) using libFuzzer. ", 1.0.2-1.0.2d, 1.0.2e 
+39,moderate,CVE-2015-3194,"The signature verification routines will crash with a NULL pointer dereference
+      if presented with an ASN.1 signature using the RSA PSS algorithm and absent
+      mask generation function parameter. Since these routines are used to verify
+      certificate signature algorithms this can be used to crash any certificate
+      verification operation and exploited in a DoS attack. Any application which
+      performs certificate verification is vulnerable including OpenSSL clients and
+      servers which enable client authentication. Reported by Loïc Jonas Etienne (Qnective AG). ", 1.0.2-1.0.2d, 1.0.2e 
+40,moderate,CVE-2015-3193,"There is a carry propagating bug in the x86_64 Montgomery squaring procedure. No
+      EC algorithms are affected. Analysis suggests that attacks against RSA and DSA
+      as a result of this defect would be very difficult to perform and are not
+      believed likely. Attacks against DH are considered just feasible (although very
+      difficult) because most of the work necessary to deduce information
+      about a private key may be performed offline. The amount of resources
+      required for such an attack would be very significant and likely only
+      accessible to a limited number of attackers. An attacker would
+      additionally need online access to an unpatched system using the target
+      private key in a scenario with persistent DH parameters and a private
+      key that is shared between multiple clients. For example this can occur by
+      default in OpenSSL DHE based SSL/TLS ciphersuites. Reported by Hanno Böck. ", 1.0.2-1.0.2d, 1.0.2e 
+41,low,CVE-2015-1794,"If a client receives a ServerKeyExchange for an anonymous DH ciphersuite with
+      the value of p set to 0 then a seg fault can occur leading to a possible denial
+      of service attack. Reported by Guy Leaver (Cisco). ", 1.0.2-1.0.2d, 1.0.2e 
+42,high,CVE-2015-1793,"An error in the implementation of the alternative certificate
+      chain logic could allow an attacker to cause certain checks on
+      untrusted certificates to be bypassed, such as the CA flag,
+      enabling them to use a valid leaf certificate to act as a CA and
+      ""issue"" an invalid certificate. Reported by Adam Langley and David Benjamin (Google/BoringSSL). ", 1.0.2b-1.0.2c, 1.0.2d 
+43,moderate,CVE-2015-1792,"When verifying a signedData message the CMS code can enter an infinite loop
+      if presented with an unknown hash function OID.
+
+      This can be used to perform denial of service against any system which
+      verifies signedData messages using the CMS code. Reported by Johannes Bauer. ", 1.0.2-1.0.2a, 1.0.2b 
+44,moderate,CVE-2015-1790,"The PKCS#7 parsing code does not handle missing inner EncryptedContent
+      correctly. An attacker can craft malformed ASN.1-encoded PKCS#7 blobs
+      with missing content and trigger a NULL pointer dereference on parsing.
+
+      Applications that decrypt PKCS#7 data or otherwise parse PKCS#7
+      structures from untrusted sources are affected. OpenSSL clients and
+      servers are not affected. Reported by Michal Zalewski (Google). ", 1.0.2-1.0.2a, 1.0.2b 
+45,moderate,CVE-2015-1789,"X509_cmp_time does not properly check the length of the ASN1_TIME
+      string and can read a few bytes out of bounds. In addition,
+      X509_cmp_time accepts an arbitrary number of fractional seconds in the
+      time string.
+
+      An attacker can use this to craft malformed certificates and CRLs of
+      various sizes and potentially cause a segmentation fault, resulting in
+      a DoS on applications that verify certificates or CRLs. TLS clients
+      that verify CRLs are affected. TLS clients and servers with client
+      authentication enabled may be affected if they use custom verification
+      callbacks. Reported by Robert Święcki (Google Security Team).  Reported by Hanno Böck. ", 1.0.2-1.0.2a, 1.0.2b 
+46,"toc""><img src=""/img/up.gif",CVE-2015-1788,"When processing an ECParameters structure OpenSSL enters an infinite loop if
+      the curve specified is over a specially malformed binary polynomial field.
+
+      This can be used to perform denial of service against any
+      system which processes public keys, certificate requests or
+      certificates.  This includes TLS clients and TLS servers with
+      client authentication enabled. Reported by Joseph Birr-Pixton. ", 1.0.2-1.0.2a, 1.0.2b 
+47,low,CVE-2015-1791,"If a NewSessionTicket is received by a multi-threaded client when attempting to
+      reuse a previous ticket then a race condition can occur potentially leading to
+      a double free of the ticket data. Reported by Emilia Käsper (OpenSSL). ", 1.0.2-1.0.2a, 1.0.2b 
+48,moderate,CVE-2015-1787,"Empty CKE with client auth and DHE.
+If client auth is used then a server can seg fault in the event of a DHE
+ciphersuite being selected and a zero length ClientKeyExchange message being
+sent by the client. This could be exploited in a DoS attack. Reported by Matt Caswell (OpenSSL development team). ", 1.0.2, 1.0.2a 
+49,moderate,CVE-2015-0293,"DoS via reachable assert in SSLv2 servers.
+A malicious client can trigger an OPENSSL_assert in
+servers that both support SSLv2 and enable export cipher suites by sending
+a specially crafted SSLv2 CLIENT-MASTER-KEY message. Reported by Sean Burford (Google) and Emilia Käsper (OpenSSL development team). ", 1.0.2, 1.0.2a 
+50,high,CVE-2015-0291,"ClientHello sigalgs DoS.  If a client connects to an OpenSSL 1.0.2 server and renegotiates with an
+invalid signature algorithms extension a NULL pointer dereference will occur.
+This can be exploited in a DoS attack against the server. Reported by  David Ramos (Stanford University). ", 1.0.2, 1.0.2a 
+51,moderate,CVE-2015-0290,"Multiblock corrupted pointer.
+OpenSSL 1.0.2 introduced the ""multiblock"" performance improvement. This feature
+only applies on 64 bit x86 architecture platforms that support AES NI
+instructions. A defect in the implementation of ""multiblock"" can cause OpenSSL's
+internal write buffer to become incorrectly set to NULL when using non-blocking
+IO. Typically, when the user application is using a socket BIO for writing, this
+will only result in a failed connection. However if some other BIO is used then
+it is likely that a segmentation fault will be triggered, thus enabling a
+potential DoS attack. Reported by Daniel Danner and Rainer Mueller. ", 1.0.2, 1.0.2a 
+52,moderate,CVE-2015-0289,"PKCS#7 NULL pointer dereference.
+The PKCS#7 parsing code does not handle missing outer ContentInfo correctly.
+An attacker can craft malformed ASN.1-encoded PKCS#7 blobs with
+missing content and trigger a NULL pointer dereference on parsing.
+Applications that verify PKCS#7 signatures, decrypt PKCS#7 data or
+otherwise parse PKCS#7 structures from untrusted sources are
+affected. OpenSSL clients and servers are not affected. Reported by Michal Zalewski (Google). ", 1.0.2, 1.0.2a 
+53,moderate,CVE-2015-0287,"ASN.1 structure reuse memory corruption.
+Reusing a structure in ASN.1 parsing may allow an attacker to cause
+memory corruption via an invalid write. Such reuse is and has been
+strongly discouraged and is believed to be rare. Reported by Emilia Käsper (OpenSSL development team). ", 1.0.2, 1.0.2a 
+54,moderate,CVE-2015-0286,"Segmentation fault in ASN1_TYPE_cmp.
+The function ASN1_TYPE_cmp will crash with an invalid read if an attempt is
+made to compare ASN.1 boolean types. Since ASN1_TYPE_cmp is used to check
+certificate signature algorithm consistency this can be used to crash any
+certificate verification operation and exploited in a DoS attack. Any
+application which performs certificate verification is vulnerable including
+OpenSSL clients and servers which enable client authentication. Reported by Stephen Henson (OpenSSL development team). ", 1.0.2, 1.0.2a 
+55,low,CVE-2015-0209,"Use After Free following d2i_ECPrivatekey error.
+A malformed EC private key file consumed via the d2i_ECPrivateKey function could
+cause a use after free condition. This, in turn, could cause a double
+free in several private key parsing functions (such as d2i_PrivateKey
+or EVP_PKCS82PKEY) and could lead to a DoS attack or memory corruption
+for applications that receive EC private keys from untrusted
+sources. This scenario is considered rare. Reported by The BoringSSL project. ", 1.0.2, 1.0.2a 
+56,moderate,CVE-2015-0208,"Segmentation fault for invalid PSS parameters.
+The signature verification routines will crash with a NULL pointer
+dereference if presented with an ASN.1 signature using the RSA PSS
+algorithm and invalid parameters. Since these routines are used to verify
+certificate signature algorithms this can be used to crash any
+certificate verification operation and exploited in a DoS attack. Any
+application which performs certificate verification is vulnerable including
+OpenSSL clients and servers which enable client authentication. Reported by Brian Carpenter. ", 1.0.2, 1.0.2a 
+57,moderate,CVE-2015-0207,"Segmentation fault in DTLSv1_listen. 
+A defect in the implementation of DTLSv1_listen means that state is preserved in
+the SSL object from one invocation to the next that can lead to a segmentation
+fault. Errors processing the initial ClientHello can trigger this scenario. An
+example of such an error could be that a DTLS1.0 only client is attempting to
+connect to a DTLS1.2 only server. Reported by Per Allansson. ", 1.0.2, 1.0.2a 
+58,low,CVE-2015-0285,"Under certain conditions an OpenSSL 1.0.2 client can complete a handshake with
+an unseeded PRNG. If the handshake succeeds then the client random that has been used will have
+been generated from a PRNG with insufficient entropy and therefore the output
+may be predictable. Reported by Matt Caswell (OpenSSL development team). ", 1.0.2, 1.0.2a 
+59,low,CVE-2015-0288,"X509_to_X509_REQ NULL pointer deref.
+The function X509_to_X509_REQ will crash with a NULL pointer dereference if
+the certificate key is invalid. This function is rarely used in practice. Reported by Brian Carpenter. ", 1.0.2, 1.0.2a 

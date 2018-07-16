@@ -1,0 +1,75 @@
+Unnamed: 0,impact_Rating,CVE-Id,Advisory,versions_Affected
+1,Important,CVE-2018-1305,"Important: Security constraint annotations applied too
+       late",Affects: 7.0.0 to 7.0.84
+2,Important,CVE-2018-1304,"Important: Security constraints mapped to context root are
+       ignored",Affects: 7.0.0 to 7.0.84
+3,Low,CVE-2017-15706,Low: Incorrectly documented CGI search algorithm,Affects: 7.0.79 to 7.0.82
+4,Important,CVE-2017-12617,Important: Remote Code Execution,Affects: 7.0.0 to 7.0.81
+5,Important,CVE-2017-12616,Important: Information Disclosure,Affects: 7.0.0 to 7.0.80
+6,Important,CVE-2017-12615,Important: Remote Code Execution,Affects: 7.0.0 to 7.0.79
+7,Moderate,CVE-2017-7674,Moderate: Cache Poisoning,Affects: 7.0.41 to 7.0.78
+8,Important,CVE-2017-5664,Important: Security Constraint Bypass,Affects: 7.0.0 to 7.0.77
+9,Important,CVE-2017-5647,Important: Information Disclosure,Affects: 7.0.0 to 7.0.76
+10,Low,CVE-2017-5648,Low: Information Disclosure,Affects: 7.0.0 to 7.0.75
+11,Important,CVE-2016-8745,Important: Information Disclosure,Affects: 7.0.0 to 7.0.73
+12,Important,CVE-2016-8735,Important: Remote Code Execution,Affects: 7.0.0 to 7.0.72
+13,Important,CVE-2016-6816,Important: Information Disclosure,Affects: 7.0.0 to 7.0.72
+14,Low,CVE-2016-6797,Low: Unrestricted Access to Global Resources,Affects: 7.0.0 to 7.0.70
+15,Low,CVE-2016-6796,Low: Security Manager Bypass,Affects: 7.0.0 to 7.0.70
+16,Low,CVE-2016-6794,Low: System Property Disclosure,Affects: 7.0.0 to 7.0.70
+17,Low,CVE-2016-5018,Low: Security Manager Bypass,Affects: 7.0.0 to 7.0.70
+18,Low,CVE-2016-0762,Low: Timing Attack,Affects: 7.0.0 to 7.0.70
+19,Moderate,CVE-2016-3092,Moderate: Denial of Service,Affects: 7.0.0 to 7.0.69
+20,Low,CVE-2015-5345,Low: Directory disclosure,Affects: 7.0.0 to 7.0.67
+21,Moderate,CVE-2015-5351,Moderate: CSRF token leak,Affects: 7.0.1 to 7.0.67
+22,Low,CVE-2016-0706,Low: Security Manager bypass,Affects: 7.0.0 to 7.0.67
+23,Moderate,CVE-2016-0714,Moderate: Security Manager bypass,Affects: 7.0.0 to 7.0.67
+24,Moderate,CVE-2016-0763,Moderate: Security Manager bypass,Affects: 7.0.0 to 7.0.67
+25,Low,CVE-2015-5346,Low: Session Fixation,Affects: 7.0.5 to 7.0.65
+26,Low,CVE-2015-5174,Low: Limited directory traversal,Affects: 7.0.0 to 7.0.64
+27,Moderate,CVE-2014-7810,Moderate: Security Manager bypass,Affects: 7.0.0 to 7.0.57
+28,Important,CVE-2014-0227,Important: Request Smuggling,Affects: 7.0.0 to 7.0.54
+29,Low,CVE-2014-0230,Low: Denial of Service,Affects: 7.0.0 to 7.0.54
+30,Low,CVE-2014-0119,Low: Information Disclosure,Affects: 7.0.0-7.0.53
+31,Important,CVE-2014-0075,Important: Denial of Service,Affects: 7.0.0-7.0.52
+32,Important,CVE-2014-0096,Important: Information disclosure,Affects: 7.0.0-7.0.52
+33,Important,CVE-2014-0099,Important: Information disclosure,Affects: 7.0.0-7.0.52
+34,Important,CVE-2014-0050,Important: Denial of Service,Affects: 7.0.0-7.0.50
+35,Important,CVE-2013-4322,Important: Denial of service,Affects: 7.0.0 to 7.0.47
+36,Low,CVE-2013-4590,Low: Information disclosure,Affects: 7.0.0 to 7.0.47
+37,Important,CVE-2013-4286,Important: Information disclosure,Affects: 7.0.0 to 7.0.42
+38,Moderate,CVE-2013-2071,Moderate: Information disclosure,Affects: 7.0.0-7.0.39
+39,Important,CVE-2013-4444,Important: Remote Code Execution,Affects: 7.0.0 to 7.0.39
+40,Important,CVE-2013-2067,Important: Session fixation,Affects: 7.0.0-7.0.32
+41,Important,CVE-2012-4431,Important: Bypass of CSRF prevention filter,Affects: 7.0.0-7.0.31
+42,Important,CVE-2012-3544,Important: Denial of service,Affects: 7.0.0-7.0.29
+43,Moderate,CVE-2012-3439,Moderate: DIGEST authentication weakness,Affects: 7.0.0-7.0.29
+44,Important,CVE-2012-3546,Important: Bypass of security constraints,Affects: 7.0.0-7.0.29
+45,Important,CVE-2012-2733,Important: Denial of service,Affects: 7.0.0-7.0.27
+46,Important,CVE-2012-4534,Important: Denial of service,Affects: 7.0.0-7.0.27
+47,Important,CVE-2012-0022,Important: Denial of service,Affects: 7.0.0-7.0.22
+48,Important,CVE-2011-3375,Important: Information disclosure,Affects: 7.0.0-7.0.21
+49,Low,CVE-2011-3376,Low: Privilege Escalation,Affects: 7.0.0-7.0.21
+50,Important,CVE-2011-3190,"Important: Authentication bypass and information disclosure
+       ",Affects: 7.0.0-7.0.20
+51,Important,CVE-2011-2729,Important: Information disclosure,
+52,Low,CVE-2011-2526,Low: Information disclosure,Affects: 7.0.0-7.0.18
+53,Low,CVE-2011-2204,Low: Information disclosure,Affects: 7.0.0-7.0.16
+54,Low,CVE-2011-2481,Low: Information disclosure,Affects: 7.0.0-7.0.16
+55,Important,CVE-2011-1582,Important: Security constraint bypass,Affects: 7.0.12-7.0.13
+56,Important,CVE-2011-1475,Important: Information disclosure,Affects: 7.0.0-7.0.11
+57,Moderate,CVE-2011-1184,Moderate: Multiple weaknesses in HTTP DIGEST authentication,Affects: 7.0.0-7.0.11
+58,Important,CVE-2011-1183,Important: Security constraint bypass,Affects: 7.0.11
+59,Important,CVE-2011-1088,Important: Security constraint bypass,Affects: 7.0.0-7.0.10
+60,Important,CVE-2011-0534,Important: Remote Denial Of Service,Affects: 7.0.0-7.0.6
+61,Low,CVE-2011-0013,Low: Cross-site scripting,Affects: 7.0.0-7.0.5
+62,Low,CVE-2010-4172,Low: Cross-site scripting,Affects: 7.0.0-7.0.4
+63,Low,CVE-2010-3718,Low: SecurityManager file permission bypass,Affects: 7.0.0-7.0.3
+64,Important,CVE-2010-2227,"Important: Remote Denial Of Service and Information Disclosure
+       Vulnerability",Affects: 7.0.0
+65,Important,CVE-2017-6056,Important: Denial of Service,
+66,Low,CVE-2012-5568,Low: Denial Of Service,"Affects: Debian, Ubuntu and potentially other downstream
+       distributions."
+67,Important,CVE-2010-4476,Important: Remote Denial Of Service,Affects: 7.0.0-7.0.x
+68,Moderate,CVE-2009-3555,Moderate: TLS SSL Man In The Middle,Affects: 7.0.0-7.0.6
+69,Important,CVE-2014-0160,Important: Remote Memory Read,"Affects: OpenSSL 1.0.1-1.0.1f, tcnative 1.1.24-1.1.29"

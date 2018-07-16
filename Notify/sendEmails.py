@@ -1,16 +1,17 @@
-import smtplib
 import configparser
-import utils.OutputFormat as out
-import utils.args as args
-import pandas as pd
-import logging
-import utils.args as args
 import email
-from email.utils import parseaddr
-
-from string import Template
+import logging
+import re
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.utils import parseaddr
+from string import Template
+
+import pandas as pd
+
+import utils.args as args
+import utils.OutputFormat as out
 
 # edit data in config.ini file
 config = configparser.ConfigParser()
@@ -45,19 +46,19 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
     smtp_server = smtplib.SMTP(host=ARG.smtp_address, port=ARG.smtp_port)
     smtp_server.starttls()
     if ARG.smtp_user is False:
-        email_check = parseaddr(FROM_EMAIL)
-        if not email_check[1]:
+        email_check = check_vaid_email(FROM_EMAIL)
+        if not email_check:
             logging.info("email id in config.ini is not valid")
             return False
         else:
             smtp_server.login(FROM_EMAIL, MY_PASSWORD)
     else:
-        email_check = parseaddr(ARG.smtp_user)
-        if email_check[1] != '':
-            smtp_server.login(ARG.smtp_user, ARG.smtp_pass)
-        else:
+        email_check = check_vaid_email(ARG.smtp_user)
+        if not email_check:
             logging.info("email id in argparse is not valid")
             return False
+        else:
+            smtp_server.login(ARG.smtp_user, ARG.smtp_pass)
 
     # Get each user detail and send the email:
     for name, email in zip(names, emails):
@@ -105,7 +106,8 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
             while cve_Id[i] != first_cve and i < total_cves:
                 new_added += 1
                 i += 1
-            logging.info("Num of newly added cves are: " + str(new_added))
+            logging.info("Num of newly added cves in " +
+                         parser_of + " is " + str(new_added))
             main(parser_of, link, new_added, now_top, new_advisory)
             if new_added > 0:
                 return True
@@ -114,4 +116,13 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
             return False
     except Exception as e:
         logging.info("File error: " + " " + parser_of + " " + str(e))
+        return True
+
+
+def check_vaid_email(addressToVerify):
+    match = re.match(
+        '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', addressToVerify)
+    if match == None:
+        return False
+    else:
         return True

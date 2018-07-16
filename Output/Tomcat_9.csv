@@ -1,0 +1,31 @@
+Unnamed: 0,impact_Rating,CVE-Id,Advisory,versions_Affected
+1,Important,CVE-2018-1305,"Important: Security constraint annotations applied too
+       late",Affects: 9.0.0.M1 to 9.0.4
+2,Important,CVE-2018-1304,"Important: Security constraints mapped to context root are
+       ignored",Affects: 9.0.0.M1 to 9.0.4
+3,Low,CVE-2017-15706,Low: Incorrectly documented CGI search algorithm,Affects: 9.0.0.M22 to 9.0.1
+4,Important,CVE-2017-12617,Important: Remote Code Execution,Affects: 9.0.0.M1 to 9.0.0
+5,Important,CVE-2017-7675,Important: Security Constraint Bypass,Affects: 9.0.0.M1 to 9.0.0.M21
+6,Moderate,CVE-2017-7674,Moderate: Cache Poisoning,Affects: 9.0.0.M1 to 9.0.0.M21
+7,Important,CVE-2017-5664,Important: Security Constraint Bypass,Affects: 9.0.0.M1 to 9.0.0.M20
+8,Important,CVE-2017-5651,Important: Information Disclosure,Affects: 9.0.0.M1 to 9.0.0.M18
+9,Important,CVE-2017-5650,Important: Denial of Service,Affects: 9.0.0.M1 to 9.0.0.M18
+10,Important,CVE-2017-5647,Important: Information Disclosure,Affects: 9.0.0.M1 to 9.0.0.M18
+11,Low,CVE-2017-5648,Low: Information Disclosure,Affects: 9.0.0.M1 to 9.0.0.M17
+12,Moderate,CVE-2016-8747,Moderate: Information Disclosure,Affects: 9.0.0.M11 to 9.0.0.M15
+13,Important,CVE-2016-8745,Important: Information Disclosure,Affects: 9.0.0.M1 to 9.0.0.M13
+14,Important,CVE-2016-8735,Important: Remote Code Execution,Affects: 9.0.0.M1 to 9.0.0.M11
+15,Important,CVE-2016-6817,Important: Denial of Service,Affects: 9.0.0.M1 to 9.0.0.M11
+16,Important,CVE-2016-6816,Important: Information Disclosure,Affects: 9.0.0.M1 to 9.0.0.M11
+17,Low,CVE-2016-6797,Low: Unrestricted Access to Global Resources,Affects: 9.0.0.M1 to 9.0.0.M9
+18,Low,CVE-2016-6796,Low: Security Manager Bypass,Affects: 9.0.0.M1 to 9.0.0.M9
+19,Low,CVE-2016-6794,Low: System Property Disclosure,Affects: 9.0.0.M1 to 9.0.0.M9
+20,Low,CVE-2016-5018,Low: Security Manager Bypass,Affects: 9.0.0.M1 to 9.0.0.M9
+21,Low,CVE-2016-0762,Low: Timing Attack,Affects: 9.0.0.M1 to 9.0.0.M9
+22,Moderate,CVE-2016-3092,Moderate: Denial of Service,Affects: 9.0.0.M1 to 9.0.0.M6
+23,Moderate,CVE-2016-0763,Moderate: Security Manager bypass,Affects: 9.0.0.M1 to 9.0.0.M2
+24,Low,CVE-2015-5345,Low: Directory disclosure,Affects: 9.0.0.M1
+25,Low,CVE-2015-5346,Low: Session Fixation,Affects: 9.0.0.M1
+26,Moderate,CVE-2015-5351,Moderate: CSRF token leak,Affects: 9.0.0.M1
+27,Low,CVE-2016-0706,Low: Security Manager bypass,Affects: 9.0.0.M1
+28,Moderate,CVE-2016-0714,Moderate: Security Manager bypass,Affects: 9.0.0.M1

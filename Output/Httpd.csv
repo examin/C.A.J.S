@@ -1,0 +1,45 @@
+Unnamed: 0,impact_Rating,CVE-Id,Advisory,versions_Affected
+1,low,CVE-2018-1302,Possible write of after free on HTTP/2 stream shutdown,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17"
+2,low,CVE-2018-1301,Possible out of bound access after failure in reading the HTTP request,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+3,low,CVE-2018-1312,Weak Digest auth nonce generation in mod_auth_digest,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+4,low,CVE-2017-15715,<FilesMatch> bypass with a trailing newline in the file name,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+5,low,CVE-2017-15710,Out of bound write in mod_authnz_ldap when using too small Accept-Language values,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+6,moderate,CVE-2018-1283,Tampering of mod_session data for CGI applications,"2.4.29, 2.4.28, 2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+7,low,CVE-2017-9798,"Use-after-free when using <Limit > with an unrecognized method in .htaccess (""OptionsBleed"")","2.4.27, 2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+8,important,CVE-2017-9789,Read after free in mod_http2,2.4.26
+9,important,CVE-2017-9788,Uninitialized memory reflection in mod_auth_digest,"2.4.26, 2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+10,important,CVE-2017-3167,ap_get_basic_auth_pw() Authentication Bypass,"2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+11,important,CVE-2017-3169,mod_ssl Null Pointer Dereference,"2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+12,important,CVE-2017-7659,mod_http2 Null Pointer Dereference,2.4.25
+13,important,CVE-2017-7668,ap_find_token() Buffer Overread,2.4.25
+14,important,CVE-2017-7679,mod_mime Buffer Overread,"2.4.25, 2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+15,important,CVE-2016-8743,Apache HTTP Request Parsing Whitespace Defects,"2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+16,low,CVE-2016-8740,HTTP/2 CONTINUATION denial of service,"2.4.23, 2.4.20, 2.4.18, 2.4.17"
+17,low,CVE-2016-2161,DoS vulnerability in mod_auth_digest,"2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+18,low,CVE-2016-0736,Padding Oracle in Apache mod_session_crypto,"2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+19,,CVE-2016-5387,"HTTP_PROXY environment variable ""httpoxy"" mitigation","2.4.23, 2.4.20, 2.4.18, 2.4.17, 2.4.16, 2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+20,important,CVE-2016-4979,TLS/SSL X.509 client certificate auth bypass with HTTP/2,"2.4.20, 2.4.18"
+21,low,CVE-2016-1546,mod_http2: denial of service by thread starvation,"2.4.18, 2.4.17"
+22,low,CVE-2015-0228,mod_lua: Crash in websockets PING handling,"2.4.12, 2.4.10, 2.4.9, 2.4.7"
+23,low,CVE-2015-0253,Crash in ErrorDocument 400 handling,2.4.12
+24,low,CVE-2015-3183,HTTP request smuggling attack against chunked request parser,"2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+25,low,CVE-2015-3185,ap_some_auth_required API unusable,"2.4.12, 2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.5, 2.4.4, 2.4.3, 2.4.2, 2.4.1, 2.4.0"
+26,low,CVE-2014-8109,"mod_lua multiple ""Require"" directive handling is broken","2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+27,low,CVE-2014-3583,mod_proxy_fcgi out-of-bounds memory read,2.4.10
+28,low,CVE-2014-3581,mod_cache crash with empty Content-Type header,"2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+29,low,CVE-2013-5704,HTTP Trailers processing bypass,"2.4.10, 2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+30,important,CVE-2014-0231,mod_cgid denial of service,"2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+31,important,CVE-2014-3523,WinNT MPM denial of service,"2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+32,moderate,CVE-2014-0117,mod_proxy denial of service,"2.4.9, 2.4.7, 2.4.6"
+33,moderate,CVE-2014-0118,mod_deflate denial of service,"2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+34,moderate,CVE-2014-0226,mod_status buffer overflow,"2.4.9, 2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+35,low,CVE-2014-0098,mod_log_config crash,"2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+36,moderate,CVE-2013-6438,mod_dav crash,"2.4.7, 2.4.6, 2.4.4, 2.4.3, 2.4.2, 2.4.1"
+37,low,CVE-2013-4352,mod_cache crash,2.4.6
+38,moderate,CVE-2013-1896,mod_dav crash,"2.4.4, 2.4.3, 2.4.2, 2.4.1"
+39,moderate,CVE-2013-2249,mod_session_dbd session fixation flaw,"2.4.4, 2.4.3, 2.4.2, 2.4.1"
+40,low,CVE-2012-3499,XSS due to unescaped hostnames,"2.4.3, 2.4.2, 2.4.1"
+41,moderate,CVE-2012-4558,XSS in mod_proxy_balancer,"2.4.3, 2.4.2, 2.4.1"
+42,important,CVE-2012-3502,Response mixup when using mod_proxy_ajp or mod_proxy_http,"2.4.2, 2.4.1"
+43,low,CVE-2012-2687,XSS in mod_negotiation when untrusted uploads are supported,"2.4.2, 2.4.1"
+44,low,CVE-2012-0883,insecure LD_LIBRARY_PATH handling,2.4.1
