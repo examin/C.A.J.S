@@ -17,8 +17,7 @@ def outputAs(name, df):
 def outputAsCve(name, df):
     try:
         df.to_csv(name + '.csv')
-        print(" Output successfully written  as " +
-              additional_output_as + "for " + name)
+        print(" Additonal Output successfully written as cve for " + name)
         return True
     except Exception as e:
         logging.info(name + " Data unable to Updated due to " + str(e))
@@ -28,8 +27,7 @@ def outputAsCve(name, df):
 def outputAsJson(name, df):
     try:
         df.to_json(name + '.json', orient='records')
-        print(" Output successfully written  as " +
-              additional_output_as + "for " + name)
+        print(" Additonal Output successfully written  as json for " + name)
         return True
     except Exception as e:
         logging.info(name + " Data unable to Updated due to " + str(e))
@@ -41,8 +39,7 @@ def outputAsExcel(name, df):
         writer = ExcelWriter("Output/" + "name" + ".xlsx")
         df.to_excel(writer, 'CVE Details', index=False)
         writer.save()
-        print(" Output successfully written  as " +
-              additional_output_as + "for " + name)
+        print(" Additonal Output successfully written as excel  for " + name)
         return True
     except Exception as e:
         logging.info(name + " Data unable to Updated due to " + str(e))

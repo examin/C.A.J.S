@@ -1,17 +1,15 @@
 import configparser
-import email
 import logging
 import re
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.utils import parseaddr
 from string import Template
 
 import pandas as pd
 
 import utils.args as args
-import utils.OutputFormat as out
+import utils.redis_util as db
 
 # edit data in config.ini file
 config = configparser.ConfigParser()
@@ -38,7 +36,7 @@ def parse_template(file_name):
     return Template(msg_template_content)
 
 
-def main(parser_of, cve_url, new_added, cve_Id, advisory):
+def main(parser_of, cve_url, new_added, cve_id, advisory):
     names, emails = get_users('Notify/contacts.txt')  # read user details
     message_template = parse_template('Notify/newcve.html')
 
@@ -46,14 +44,14 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
     smtp_server = smtplib.SMTP(host=ARG.smtp_address, port=ARG.smtp_port)
     smtp_server.starttls()
     if ARG.smtp_user is False:
-        email_check = check_vaid_email(FROM_EMAIL)
+        email_check = check_valid_email(FROM_EMAIL)
         if not email_check:
             logging.info("email id in config.ini is not valid")
             return False
         else:
             smtp_server.login(FROM_EMAIL, MY_PASSWORD)
     else:
-        email_check = check_vaid_email(ARG.smtp_user)
+        email_check = check_valid_email(ARG.smtp_user)
         if not email_check:
             logging.info("email id in argparse is not valid")
             return False
@@ -69,8 +67,8 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
             NAME=name.title(),
             NEW_ADDED=new_added,
             CVE_LINK=cve_url,
-            CVE_ID=cve_Id,
-            ADVISORY=advisory,
+            CVE_ID=cve_id[0],
+            ADVISORY=advisory[0],
             PARSER_OF=parser_of)
 
         # Prints out the message body for our sake
@@ -92,23 +90,25 @@ def main(parser_of, cve_url, new_added, cve_Id, advisory):
     smtp_server.quit()
 
 
-def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
+def do_need_notify(parser_of, path, cve_id, ver_affected, advisory, link):
     try:
         last_data = pd.read_csv(path)
-        now_top = cve_Id[0]
+        now_top = cve_id[0]
         first_cve = last_data['CVE-Id'].values[0]
         if now_top != first_cve:
             first_cve = last_data['CVE-Id'].values[0]
-            now_top = cve_Id[0]
-            i = 1
-            new_added = 1
-            total_cves = len(cve_Id)
-            while cve_Id[i] != first_cve and i < total_cves:
-                new_added += 1
-                i += 1
+            index = 0
+            new_cves=[]
+            new_advisory=[]
+            while cve_id[index] != first_cve and index < len(cve_id):
+                new_advisory.append(advisory[index])
+                new_cves.append(cve_id[index])
+                index += 1
+            new_added = len(new_cves)
             logging.info("Num of newly added cves in " +
                          parser_of + " is " + str(new_added))
-            main(parser_of, link, new_added, now_top, new_advisory)
+            main(parser_of, link, new_added, new_cves, new_advisory)
+            db.redis_pub(parser_of, new_cves, new_advisory, ver_affected, link)
             if new_added > 0:
                 return True
         else:
@@ -119,10 +119,10 @@ def do_need_notify(parser_of, path, cve_Id, new_advisory, link):
         return True
 
 
-def check_vaid_email(addressToVerify):
+def check_valid_email(addressToVerify):
     match = re.match(
         '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', addressToVerify)
-    if match == None:
+    if match is None:
         return False
     else:
         return True
