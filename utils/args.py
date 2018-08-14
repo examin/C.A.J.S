@@ -8,8 +8,15 @@ def get_args():
         "Output data as csv, excel or json ref:C.A.J.S\Output\*")
     email_options = parser.add_argument_group("Email Options")
     smtp_options = parser.add_argument_group("SMTP options")
-    redis_options = parser.add_argument_group("Redis options")
+    notify_options = parser.add_argument_group("Notification options")
 
+    redis_options = parser.add_argument_group("Redis options")
+    notify_options.add_argument("-D", "--stdout", action='store_true',
+                                help="Display new found eve details stdout")
+    notify_options.add_argument("-R", "--redis_pub", action='store_true',
+                                help="Publish new found cves to channels")
+    notify_options.add_argument("-E", "--send_email", action='store_true',
+                                help="Send emails to notify about new cves")
     email_options.add_argument("-a", "--sendToAll", action='store_true',
                                help="Send Email to all address in contacts", default=False)
     email_options.add_argument("-f", "--from", dest="from_address",
